@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Events/Dates 💜</title>
+<style>
+  body {
+    background: #1a001f; 
+    background-image: url('w2.png'); 
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffb3ff;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+  }
+
+ 
+  .container {
+    background: rgba(40, 0, 40, 0.85);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid #ff66cc;
+    box-shadow: 0 0 15px rgba(255, 102, 204, 0.3);
+    width: 300px;
+  }
+
+  h2 {
+    text-shadow: 2px 2px #500050;
+    margin-bottom: 20px;
+  }
+
+ 
+  input[type="date"], textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ffb3ff;
+    background: #330033;
+    color: #fff;
+    font-family: monospace;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  input[type="date"]:focus, textarea:focus {
+    border-color: #ff66cc;
+    box-shadow: 0 0 8px #ff66cc;
+  }
+
+ 
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  li {
+    background: rgba(255, 102, 204, 0.2);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    border-left: 4px solid #ff66cc;
+  }
+
+
+  button, a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    background: #ff66cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  button:hover, a:hover {
+    background: #ff3399;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 51, 153, 0.4);
+  }
+
+  .back-btn {
+    background: transparent;
+    border: 1px solid #ff66cc;
+    font-size: 12px;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>📅 Important Dates</h2>
+  
+  <input type="date" id="date"><br>
+  <textarea id="note" placeholder="Type note + emoji 💖"></textarea><br>
+  
+  <button onclick="save()">Save Date ✨</button>
+
+  <ul id="list"></ul>
+  
+  <br>
+  <a href="index.html" class="back-btn">⬅ Back to Portal</a>
+</div>
+
+<script>
+let data = JSON.parse(localStorage.getItem("dates")||"{}");
+
+function save(){
+  let d = document.getElementById("date").value;
+  let n = document.getElementById("note").value;
+  if(!d||!n) return;
+  data[d]=n;
+  localStorage.setItem("dates",JSON.stringify(data));
+  show();
+
+  document.getElementById("date").value = "";
+  document.getElementById("note").value = "";
+}
+
+function show(){
+  let list = document.getElementById("list");
+  list.innerHTML="";
+
+  let sortedDates = Object.keys(data).sort();
+  for(let d of sortedDates){
+    let li=document.createElement("li");
+    li.textContent = "📌 " + d + " : " + data[d];
+    list.appendChild(li);
+  }
+}
+show();
+</script>
+
+</body>
+</html>

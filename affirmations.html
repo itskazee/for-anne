@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Affirmations 💜</title>
+<style>
+body {
+  background:#200020;
+  color:#ffb3ff;
+  font-family:monospace;
+  text-align:center;
+}
+
+#backBtn {
+  display:inline-block;
+  margin:10px;
+  padding:6px 14px;
+  background:#ff66cc;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+}
+
+#box {
+  width:260px;
+  margin:40px auto;
+  padding:15px;
+  background:#330033;
+  border-radius:14px;
+  box-shadow:0 0 12px #ff66cc;
+  font-size:15px;
+}
+
+button {
+  margin-top:15px;
+  padding:8px 16px;
+  background:#ff66cc;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-family:monospace;
+  box-shadow:0 0 8px #ff66cc;
+}
+
+button:hover {
+  background:#ff3399;
+}
+</style>
+</head>
+
+<body>
+
+<a id="backBtn" href="index.html">⬅ Back</a>
+
+<h2>💖 Daily Words of Affirmations</h2>
+
+<div id="box">This will show you 3 words of affirmation every 24 hours</div>
+
+<button onclick="newAffirmation()">Click here</button>
+
+<script>
+const affirmations = [
+  "You are deeply loved and appreciated 💜",
+  "You are beautiful inside and out 🌸",
+  "You deserve all the happiness in the world 🌷"
+];
+
+function newAffirmation() {
+  const random = Math.floor(Math.random() * affirmations.length);
+  document.getElementById("box").innerText = affirmations[random];
+}
+</script>
+
+</body>
+</html>

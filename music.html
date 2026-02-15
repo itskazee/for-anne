@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Music Player 💜</title>
+<style>
+  body {
+    background: #1a001f;
+    background-image: url('w2.png');
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffb3ff;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+  }
+
+  #backBtn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 18px;
+    background: rgba(255, 102, 204, 0.2);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    border: 1px solid #ff66cc;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+  }
+
+  #backBtn:hover {
+    background: #ff66cc;
+  }
+
+
+  .glass-panel {
+    background: rgba(40, 0, 40, 0.65);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 179, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 15px auto;
+    width: 280px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  select {
+    padding: 10px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #ff66cc;
+    background: #200020;
+    color: #ffb3ff;
+    font-family: monospace;
+    cursor: pointer;
+    outline: none;
+  }
+
+  audio {
+    width: 100%;
+    height: 35px;
+    margin-top: 10px;
+ 
+    filter: sepia(20%) saturate(70%) hue-rotate(250deg) brightness(90%);
+  }
+
+  #lyrics {
+    font-style: italic;
+    font-size: 14px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #imageBox img {
+    width: 100%;
+    max-width: 220px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 102, 204, 0.5);
+    transition: transform 0.5s ease;
+  }
+  
+
+  .pulse {
+    animation: pulse-animation 0.5s ease;
+  }
+
+  @keyframes pulse-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+</style>
+</head>
+
+<body>
+
+<a id="backBtn" href="index.html">⬅ Back</a>
+
+<h2>🎶 Our Songs</h2>
+
+<div class="glass-panel">
+  <select onchange="changeSong(this.value)">
+    <option value="">-- Select a song --</option>
+    <option value="song1">I Think They Call This Love - Elliot James Reay</option>
+    <option value="song2">It's You - Henry</option>
+    <option value="song3">ILYSB Stripped - LANY</option>
+    <option value="song4">Mahika - Adie ft. Janine Berdin</option>
+    <option value="song5">You and Me - Lifehouse</option>
+    <option value="song6">Bulong - December Avenue</option>
+    <option value="song7">Best Part - Daniel Caesar ft. H.E.R</option>
+    <option value="song8">Enchanted - Taylor Swift</option>
+    <option value="song9">Iris - Goo Goo Dolls</option>
+    <option value="song10">Sila - SUD</option>
+    <option value="song11">Moving Closer - Never the Strangers</option>
+    <option value="song12">Without You - AJ Rafael</option>
+    <option value="song13">Araw-Araw - Ben&Ben</option>
+  </select>
+
+  <audio id="player" controls preload="none"></audio>
+</div>
+
+<div id="imageBox" class="glass-panel">
+  <img id="pic" src="couple1.jpg">
+</div>
+
+<div id="lyrics" class="glass-panel">
+  Select a song to see lovely lyrics from it 💖
+</div>
+
+<script>
+const songs = {
+  song1: { file:"I Think They Call This Love - Elliot James Reay.mp3", lyrics:"Now, baby, you're on my mind, every night, every day 💜", image:"couple1.jpg" },
+  song2: { file:"It's You - Henry.mp3", lyrics:"Everything that you are is all I'm dreaming of 💜", image:"couple2.jpg" },
+  song3: { file:"ILYSB Stripped - LANY.mp3", lyrics:"I'm hella obsessed with your face 💜", image:"couple3.jpg" },
+  song4: { file:"Mahika - Adie ft. Janine Berdin.mp3", lyrics:"Ako na nga'y nabihag mo na 💜", image:"couple4.jpg" },
+  song5: { file:"You and Me - Lifehouse.mp3", lyrics:"Everything she does is beautiful. Everything she does is right. 💜", image:"couple5.jpg" },
+  song6: { file:"Bulong - December Avenue.mp3", lyrics:"Ikaw ang ilaw sa dilim at ang liwanag ng mga bituin. 💜", image:"couple6.jpg" },
+  song7: { file:"Best Part  - Daniel Caesar ft. H.E.R.mp3", lyrics:"You're the sunshine on my life. 💜", image:"couple7.jpg" },
+  song8: { file:"Enchanted - Taylor Swift.mp3", lyrics:"All I know is, I was enchanted to meet you 💜", image:"couple8.jpg" },
+  song9: { file:"Iris - Goo Goo Dolls.mp3", lyrics:"You're the closest to heaven that I'll ever be. 💜", image:"couple9.jpg" },
+  song10:{ file:"Sila - SUD.mp3",lyrics:"Walang papantay sa'yo, maging sino man sila. 💜", image:"couple10.jpg" },
+  song11:{ file:"Moving Closer - Never the Strangers.mp3",lyrics:"When you smile, everything's in place. 💜", image:"couple11.jpg" },
+  song12:{ file:"Without You - AJ Rafael.mp3",lyrics:"Promise that I'm here, I'll never be gone. 💜", image:"couple12.jpg" },
+  song13:{ file:"Araw-Araw - Ben&Ben.mp3",lyrics:"Tanging ika'y iibiging wagas at buo. 💜", image:"couple13.jpg" }
+};
+
+function changeSong(key) {
+  if(!songs[key]) return;
+
+  const song = songs[key];
+  const player = document.getElementById("player");
+  const pic = document.getElementById("pic");
+
+ 
+  player.src = song.file;
+  player.play();
+
+
+  document.getElementById("lyrics").innerText = song.lyrics;
+  
+  
+  pic.src = song.image;
+  pic.classList.remove("pulse");
+  void pic.offsetWidth; 
+  pic.classList.add("pulse");
+
+  localStorage.setItem("currentSong", song.file);
+}
+</script>
+
+</body>
+</html>
